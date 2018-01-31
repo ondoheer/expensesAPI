@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 
-from flask_jwt_simple import create_jwt
+from flask_jwt_extended import create_access_token
 
 
 auth = Blueprint("auth", __name__)
@@ -25,5 +25,5 @@ def login():
 
     # validate user logic
 
-    ret = {"token": create_jwt(identity=username)}
+    ret = {"token": create_access_token(identity=username)}
     return jsonify(ret), 200
