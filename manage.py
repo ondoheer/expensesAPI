@@ -7,6 +7,8 @@ from flask_migrate import Migrate, MigrateCommand
 from app import create_app
 from app.models import db
 from app.models.user import User
+from app.models.expense import Expense
+from app.models.category import Category
 
 
 
@@ -26,7 +28,9 @@ def make_shell_context():
         app=app,
         db=db,
         # add models
-        User=User
+        User=User,
+        Expense=Expense,
+        Category=Category
     )
 if __name__ == '__main__':
     manager.run()
