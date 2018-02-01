@@ -9,6 +9,7 @@ from app.models import db
 from app.models.user import User
 from app.models.expense import Expense
 from app.models.category import Category
+from app.models.month import Month
 
 
 
@@ -30,7 +31,8 @@ def make_shell_context():
         # add models
         User=User,
         Expense=Expense,
-        Category=Category
+        Category=Category,
+        Month=Month
     )
 if __name__ == '__main__':
     manager.run()

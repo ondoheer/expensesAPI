@@ -3,13 +3,13 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.models import db
 from app.models.user import User
-from app.models.expense import Expense
+from app.models.category import Category
 
 
+categories = Blueprint("categories", __name__)
 
-expenses = Blueprint("expenses", __name__)
 
-@expenses.route("/expense", methods=["GET"])
+@categories.route("/category", methods=["GET"])
 @jwt_required
 def all():
 
@@ -20,16 +20,12 @@ def all():
 
     user = User.query.filter_by(email=current_user).first()
 
-    expenses = db.session.query(Expense).filter_by(user_id=user.id).all()
+    categories = db.session.query(Category).filter_by(user_id=user.id).all()
+
+    return jsonify({'categories': Category.serialize_list(categories)}), 200
 
 
-
-    return jsonify({'expenses':Expense.serialize_list(expenses)}), 200
-
-
-
-
-@expenses.route("/expense", methods=['POST'])
+@categories.route("/category", methods=['POST'])
 @jwt_required
 def create():
 
@@ -41,22 +37,18 @@ def create():
     user = User.query.filter_by(email=current_user).first()
 
     params = request.get_json()
-    amount = params.get('amount', None)
-    name = params.get('name', None)
-    category_id = params.get('category_id', None)
+    label = params.get('label', None)
 
     # This ought to be better validated
-    if not amount or not name or not category_id:
+    if not label:
         return jsonify({"msg": "Bad request"}), 400
 
-    new_expense = Expense(
-        name=name,
-        amount=amount,
-        category_id=category_id,
+    new_category = Category(
+        label=label,
         user_id=user.id
     )
 
-    db.session.add(new_expense)
+    db.session.add(new_category)
     db.session.commit()
 
-    return jsonify({'msg': 'Expense added'}), 201
+    return jsonify({'msg': 'Category added'}), 201

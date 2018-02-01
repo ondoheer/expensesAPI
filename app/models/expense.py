@@ -18,6 +18,7 @@ class Expense(db.Model, Serializer):
     date = db.Column(db.DateTime(timezone=True), server_default=utcnow(), nullable=False)
     amount = db.Column(db.Float, nullable=False)
 
+    month_id = db.Column(db.Integer, db.ForeignKey('months.year_month_usr'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     category = db.relationship('Category',
@@ -35,4 +36,6 @@ class Expense(db.Model, Serializer):
         d = Serializer.serialize(self)
         del d['category']
         del d['user']
+        del d['month']
         return d
+

@@ -16,3 +16,19 @@ class Category(db.Model, Serializer):
 
     def __repr__(self):
         return self.name
+
+    def __init__(self, label, user_id):
+        self.user_id = user_id
+        self.label = label
+        self.name = label.lower().replace(" ", "-")
+
+
+    def serialize(self):
+        d = Serializer.serialize(self)
+        del d['user']
+        del d['expenses']
+        return d
+
+
+
+
