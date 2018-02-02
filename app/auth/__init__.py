@@ -1,7 +1,11 @@
 from flask import Blueprint, jsonify, request
 
-from flask_jwt_extended import create_access_token
-
+from flask_jwt_extended import (
+    create_access_token,
+    create_refresh_token,
+    jwt_refresh_token_required,
+    get_jwt_identity
+)
 from app.validators import validate_email, validate_fullname, validate_password
 from app.models.user import User
 from app.models import db
@@ -33,8 +37,21 @@ def login():
     if not should_login:
         return jsonify({'msg': 'invalid email or password'})
 
-    token = {"token": create_access_token(identity=email)}
+    token = {
+        "access_token": create_access_token(identity=email),
+        "refresh_token": create_refresh_token(identity=email)
+    }
     return jsonify(token), 200
+
+
+@auth.route('/refresh', methods=['POST'])
+@jwt_refresh_token_required
+def refresh():
+    current_user = get_jwt_identity()
+    ret = {
+        'access_token': create_access_token(identity=current_user)
+    }
+    return jsonify(ret), 200
 
 
 

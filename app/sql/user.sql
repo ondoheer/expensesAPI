@@ -1,0 +1,1 @@
+INSERT INTO "users" (password, email, fullname, admin) VALUES ('s3b40th1!', 'ondoheer@gmail.com', 'Pedro Baumann', true);

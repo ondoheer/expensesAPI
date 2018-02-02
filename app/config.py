@@ -1,6 +1,7 @@
 # project general config objects
 
 import os
+import datetime
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 postgres_local_base = 'postgresql://ondoheer:@localhost/'
@@ -22,3 +23,13 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = postgres_local_base + database_name
     BCRYPT_LOG_ROUNDS = 4
+    JWT_ACCESS_TOKEN_EXPIRES = False
+
+
+class ProductionConfig(BaseConfig):
+    """Production configuration"""
+
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = postgres_local_base + database_name
+    BCRYPT_LOG_ROUNDS = 4
+    JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(days=1) # let it last for a day?

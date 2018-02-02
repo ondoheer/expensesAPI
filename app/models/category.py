@@ -1,6 +1,29 @@
 from app.models import db
 from app.utils import Serializer
 
+
+class CategoryMixin(object):
+    """
+    Category Model helper methods
+    """
+
+    def sum_expenses(self):
+        return sum(expense.amount for expense in self.expenses)
+
+    def sum_expenses_by_month(self, month_id):
+        return sum(expense.amount for expense in self.expenses
+                   if expense.month_id == month_id)
+
+    @classmethod
+    def get_user_categories(cls, user_id):
+        """
+        retrieves all user expense categories
+        """
+        return db.session.query(cls)\
+            .filter(cls.user_id == user_id).all()
+
+
+
 class Category(db.Model, Serializer):
 
     """
@@ -28,6 +51,8 @@ class Category(db.Model, Serializer):
         del d['user']
         del d['expenses']
         return d
+
+
 
 
 

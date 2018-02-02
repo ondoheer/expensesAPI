@@ -1,9 +1,11 @@
 from flask import Blueprint, jsonify, abort, g, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from sqlalchemy.orm.exc import NoResultFound
 
 from app.models import db
 from app.models.user import User
 from app.models.expense import Expense
+from app.models.month import Month
 
 
 
@@ -56,7 +58,20 @@ def create():
         user_id=user.id
     )
 
-    db.session.add(new_expense)
+    month_code = Month.build_user_month_code(user.id)
+    try:
+        month = db.session.query(Month).filter(
+            Month.year_month_usr == month_code
+        ).one()
+    except NoResultFound:
+
+        month = Month(year_month_usr=month_code, user_id=user.id)
+    # new expense for the month
+    month.expenses.append(new_expense)
+    db.session.add(month)
+
+    # db.session.add(new_expense)
     db.session.commit()
 
     return jsonify({'msg': 'Expense added'}), 201
+

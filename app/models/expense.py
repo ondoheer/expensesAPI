@@ -2,7 +2,7 @@ from app.models import db
 from app.utils import utcnow
 from app.utils import Serializer
 
-import datetime
+
 
 
 class Expense(db.Model, Serializer):
