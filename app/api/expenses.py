@@ -26,7 +26,7 @@ def all():
 
 
 
-    return jsonify({'expenses':Expense.serialize_list(expenses)}), 200
+    return jsonify(Expense.serialize_list(expenses)), 200
 
 
 

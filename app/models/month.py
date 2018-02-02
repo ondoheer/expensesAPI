@@ -51,11 +51,22 @@ class MonthMixin(object):
         expenses_by_category = {}
         for expense in self.expenses:
             if expense.category not in expenses_by_category:
-                expenses_by_category["{}".format(expense.category)] = expense.amount
+                print(expense.amount)
+                expenses_by_category["{}".format(expense.category)] = {
+                    'name': expense.category.name,
+                    'label': expense.category.label,
+                    'amount': expense.amount
+                }
             else:
+                current_amount = expenses_by_category["{}".format(
+                    expense.category)]
                 expenses_by_category["{}".format(
-                    expense.category)] += expense.amount
-        # ordered_by_category = expenses_by_category.items()
+                    expense.category)] = {
+                    'name': expense.category.name,
+                    'label': expense.category.label,
+                    'amount': current_amount + expense.amount
+                }
+
 
         return expenses_by_category
 

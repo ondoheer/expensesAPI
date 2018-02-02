@@ -22,7 +22,7 @@ def all():
 
     categories = db.session.query(Category).filter_by(user_id=user.id).all()
 
-    return jsonify({'categories': Category.serialize_list(categories)}), 200
+    return jsonify( Category.serialize_list(categories)), 200
 
 
 @categories.route("/category", methods=['POST'])

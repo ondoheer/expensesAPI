@@ -38,7 +38,7 @@ class Category(db.Model, Serializer):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):
-        return self.name
+        return str(self.id)
 
     def __init__(self, label, user_id):
         self.user_id = user_id

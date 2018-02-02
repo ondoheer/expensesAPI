@@ -36,4 +36,4 @@ def index():
     }
 
 
-    return jsonify({'months': to_return})
+    return jsonify(to_return)
