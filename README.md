@@ -61,5 +61,5 @@ Endpoint | method | expects | returns
     }, ...]
 /category   | POST |  HEADER access_token {
 	"label": "Nueva Categoria"
-} | {"msg":"text"}
+} | {"msg":"text" }
 

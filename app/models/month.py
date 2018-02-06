@@ -67,8 +67,19 @@ class MonthMixin(object):
                     'amount': current_amount + expense.amount
                 }
 
+        normalized_expenses_by_category = []
 
-        return expenses_by_category
+        # {
+        #   '3': {
+        #     amount: 23.5,
+        #     label: 'Taxi',
+        #     name: 'taxi'
+        #   },
+        for category in expenses_by_category.keys():
+            new_dict = expenses_by_category[category]
+            new_dict.update({"id":category})
+            normalized_expenses_by_category.append(new_dict)
+        return normalized_expenses_by_category
 
 
     def expenses_for_category(self, category_id):

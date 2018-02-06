@@ -29,10 +29,14 @@ def index():
     last_twelve = Month.get_last_n_months(user.id, 12).all()
 
     # We prepare the data to be send as JSON
+    
     to_return = {
-        'months':[{'{}-{}'.format(month.year, month.month ): {'total':month.total_expenses,
-                    'categories': month.expenses_by_category()}} \
-                for month in last_twelve ]
+        'months':[
+        {
+        "id": f'{month.year}-{month.month}-{month.user_id}',
+        "total":month.total_expenses,
+        "categories": month.expenses_by_category()
+        } for month in last_twelve ]
     }
 
 
