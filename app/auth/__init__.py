@@ -20,6 +20,7 @@ def login():
         return jsonify({"msg": "Missing JSON in Request"}), 400
 
     params = request.get_json()
+    print(params)
     email = params.get('email', None)
     password = params.get('password', None)
 
@@ -35,7 +36,7 @@ def login():
     should_login = User.validate_password(email, password)
 
     if not should_login:
-        return jsonify({'msg': 'invalid email or password'})
+        return jsonify({'msg': 'invalid email or password'}), 400
 
     token = {
         "access_token": create_access_token(identity=email),
