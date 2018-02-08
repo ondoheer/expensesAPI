@@ -55,13 +55,13 @@ def refresh():
     return jsonify(ret), 200
 
 
-
 @auth.route('/register', methods=["POST"])
 def register():
     if not request.is_json:
         return jsonify({"msg": "Missing JSON in Request"}), 400
 
     params = request.get_json()
+    # print(params)
     email = params.get('email', None)
     password = params.get('password', None)
     fullname = params.get('fullname', None)
@@ -83,11 +83,10 @@ def register():
         return jsonify({"msg": "that is not a valid fullname", "err": error}), 400
 
     if not password:
-        return jsonify({"msg":"Password required"}), 400
+        return jsonify({"msg": "Password required"}), 400
     is_password_valid, error = validate_password(password)
     if not is_password_valid:
         return jsonify({"msg": "that is not a valid password", "err": error}), 400
-
 
     # now we process the registration
 
@@ -100,6 +99,10 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({'msg': 'User created'}), 201
+    token = {
+        "access_token": create_access_token(identity=new_user.email),
+        "refresh_token": create_refresh_token(identity=new_user.email)
+    }
 
-
+    
+    return jsonify(token), 201

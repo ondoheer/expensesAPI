@@ -11,7 +11,7 @@ categories = Blueprint("categories", __name__)
 
 @categories.route("/category", methods=["GET"])
 @jwt_required
-def all():
+def query():
 
     current_user = get_jwt_identity()
 

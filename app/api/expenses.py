@@ -13,20 +13,37 @@ expenses = Blueprint("expenses", __name__)
 
 @expenses.route("/expense", methods=["GET"])
 @jwt_required
-def all():
+def query():
+    """
+    The following parameters WILL alter the query:
+
+    last = True // will bring only the last one
+
+    """
 
     current_user = get_jwt_identity()
 
     if not current_user:
         return jsonify({'error': 'not authorized'}), 401
 
+    
+    last = request.args.get('last', False)
+    
     user = User.query.filter_by(email=current_user).first()
 
-    expenses = db.session.query(Expense).filter_by(user_id=user.id).all()
+    ## BASE QUERY
+    _baseQuery = db.session.query(Expense).filter_by(user_id=user.id).order_by(Expense.id.desc())
 
+    if last:
+        print("last")
+        expense = _baseQuery.first();
+        return jsonify(Expense.serialize(expense)), 200
 
+    else:
 
-    return jsonify(Expense.serialize_list(expenses)), 200
+        expenses = _baseQuery.all()
+
+        return jsonify(Expense.serialize_list(expenses)), 200
 
 
 
@@ -34,6 +51,7 @@ def all():
 @expenses.route("/expense", methods=['POST'])
 @jwt_required
 def create():
+    
 
     current_user = get_jwt_identity()
 
@@ -46,6 +64,8 @@ def create():
     amount = params.get('amount', None)
     name = params.get('name', None)
     category_id = params.get('category_id', None)
+
+
 
     # This ought to be better validated
     if not amount or not name or not category_id:
