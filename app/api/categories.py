@@ -20,7 +20,9 @@ def query():
 
     user = User.query.filter_by(email=current_user).first()
 
-    categories = db.session.query(Category).filter_by(user_id=user.id).all()
+    _base_query = db.session.query(Category).filter_by(user_id=user.id).order_by(Category.name)
+
+    categories = _base_query.all()
 
     return jsonify( Category.serialize_list(categories)), 200
 
