@@ -26,24 +26,49 @@ def query():
     if not current_user:
         return jsonify({'error': 'not authorized'}), 401
 
-    
-    last = request.args.get('last', False)
-    
+    # Query parameters
+    last = request.args.get('last', False) #this one is used for the add expenses form 
+    per_page = int(request.args.get('per_page', 10))
+    page = int(request.args.get('page', 1))
+    search = request.args.get('search', False)
+
     user = User.query.filter_by(email=current_user).first()
 
     ## BASE QUERY
-    _baseQuery = db.session.query(Expense).filter_by(user_id=user.id).order_by(Expense.id.desc())
+    ## We order by id because it's fastet han date and it's increasing automatically
+    _base_query = db.session.query(Expense).filter_by(user_id=user.id).order_by(Expense.id.desc())
+    
 
+
+
+    ## only used to retrieve the last expense
     if last:
         print("last")
-        expense = _baseQuery.first();
+        expense = _base_query.first();
         return jsonify(Expense.serialize(expense)), 200
 
+    # Search doesn't paginate
+    if search:
+        expenses = _base_query.filter(Expense.name.ilike(
+                        f"%{search}%")).all()
+        return jsonify(Expense.serialize_list(expenses))
+    
+    # just get the paginated objects
     else:
 
-        expenses = _baseQuery.all()
+        paginated_query = _base_query.paginate(page=page, per_page=per_page, error_out=False) # paginated object on error empty list returned
+        
+        expenses = paginated_query.items
 
-        return jsonify(Expense.serialize_list(expenses)), 200
+        to_return = {
+            'expenses': Expense.serialize_list(expenses),
+            'has_next':paginated_query.has_next,
+            'has_prev': paginated_query.has_prev,
+            'next_num': paginated_query.next_num,
+            'prev_num': paginated_query.prev_num
+        }
+
+        return jsonify(to_return), 200
 
 
 
