@@ -30,14 +30,13 @@ def index():
 
     # We prepare the data to be send as JSON
     
-    to_return = {
-        'months':[
+    to_return = [
         {
         "id": f'{month.year}-{month.month}-{month.user_id}',
         "total":month.total_expenses,
         "categories": month.expenses_by_category()
         } for month in last_twelve ]
-    }
+    
 
 
     return jsonify(to_return)
