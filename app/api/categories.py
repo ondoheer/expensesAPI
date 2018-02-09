@@ -53,4 +53,4 @@ def create():
     db.session.add(new_category)
     db.session.commit()
 
-    return jsonify({'msg': 'Category added'}), 201
+    return jsonify(Category.serialize(new_category)), 201
