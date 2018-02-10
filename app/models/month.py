@@ -51,7 +51,7 @@ class MonthMixin(object):
         expenses_by_category = {}
         for expense in self.expenses:
             if expense.category not in expenses_by_category:
-                print(expense.amount)
+                
                 expenses_by_category["{}".format(expense.category)] = {
                     'name': expense.category.name,
                     'label': expense.category.label,

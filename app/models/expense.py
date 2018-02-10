@@ -25,6 +25,8 @@ class Expense(db.Model, Serializer):
                                backref=db.backref('expenses', lazy='joined'))
 
 
+
+
     def __init__(self, name="", amount="", user_id="", category_id=""):
         self.name = name
         self.amount = amount
@@ -37,5 +39,6 @@ class Expense(db.Model, Serializer):
         del d['category']
         del d['user']
         del d['month']
+        d['date'] = d['date'].strftime('%d/%m/%Y')
         return d
 

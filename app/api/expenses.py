@@ -43,7 +43,7 @@ def query():
 
     ## only used to retrieve the last expense
     if last:
-        print("last")
+        
         expense = _base_query.first();
         return jsonify(Expense.serialize(expense)), 200
 
@@ -51,7 +51,11 @@ def query():
     if search:
         expenses = _base_query.filter(Expense.name.ilike(
                         f"%{search}%")).all()
-        return jsonify(Expense.serialize_list(expenses))
+        to_return = {
+            "expenses": Expense.serialize_list(expenses),
+            "status": "from search"
+        }
+        return jsonify(to_return)
     
     # just get the paginated objects
     else:
@@ -65,7 +69,8 @@ def query():
             'has_next':paginated_query.has_next,
             'has_prev': paginated_query.has_prev,
             'next_num': paginated_query.next_num,
-            'prev_num': paginated_query.prev_num
+            'prev_num': paginated_query.prev_num,
+            'pages': paginated_query.pages
         }
 
         return jsonify(to_return), 200

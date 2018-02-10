@@ -20,7 +20,7 @@ def login():
         return jsonify({"msg": "Missing JSON in Request"}), 400
 
     params = request.get_json()
-    print(params)
+    
     email = params.get('email', None)
     password = params.get('password', None)
 
@@ -61,7 +61,7 @@ def register():
         return jsonify({"msg": "Missing JSON in Request"}), 400
 
     params = request.get_json()
-    # print(params)
+    
     email = params.get('email', None)
     password = params.get('password', None)
     fullname = params.get('fullname', None)
