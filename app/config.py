@@ -23,7 +23,7 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = postgres_local_base + database_name
     BCRYPT_LOG_ROUNDS = 4
-    JWT_ACCESS_TOKEN_EXPIRES = False
+    JWT_ACCESS_TOKEN_EXPIRES = False# datetime.timedelta(seconds=10)
 
 
 class ProductionConfig(BaseConfig):

@@ -1,9 +1,11 @@
 from app.models import db
 from app.utils import Serializer
 from app.models.category import Category
+from app.models.expense import Expense
 from collections import OrderedDict
 
 from datetime import datetime
+from sqlalchemy.sql import func
 
 
 class MonthMixin(object):
@@ -50,31 +52,25 @@ class MonthMixin(object):
 
         expenses_by_category = {}
         for expense in self.expenses:
-            if expense.category not in expenses_by_category:
+            if str(expense.category.id) not in expenses_by_category:
+                total_expenses = db.session.query(\
+                                    func.sum(Expense.amount))\
+                                    .filter_by(category_id=expense.category.id)\
+                                    .filter_by(month_id=self.year_month_usr).all()
+        
+
                 
-                expenses_by_category["{}".format(expense.category)] = {
+
+                expenses_by_category[f"{expense.category}"] = {
                     'name': expense.category.name,
                     'label': expense.category.label,
-                    'amount': expense.amount
+                    'amount': total_expenses
                 }
-            else:
-                current_amount = expenses_by_category["{}".format(
-                    expense.category)]
-                expenses_by_category["{}".format(
-                    expense.category)] = {
-                    'name': expense.category.name,
-                    'label': expense.category.label,
-                    'amount': current_amount + expense.amount
-                }
+            
 
         normalized_expenses_by_category = []
 
-        # {
-        #   '3': {
-        #     amount: 23.5,
-        #     label: 'Taxi',
-        #     name: 'taxi'
-        #   },
+        
         for category in expenses_by_category.keys():
             new_dict = expenses_by_category[category]
             new_dict.update({"id":category})
