@@ -13,6 +13,20 @@ from app.extensions import bcrypt
 
 auth = Blueprint("auth", __name__)
 
+@auth.route('/validate')
+@jwt_refresh_token_required
+def validate():
+    return jsonify({'msg':'valid token'}), 200
+
+@auth.route('/refresh', methods=['POST'])
+@jwt_refresh_token_required
+def refresh():
+    current_user = get_jwt_identity()
+    ret = {
+        'access_token': create_access_token(identity=current_user)
+    }
+    return jsonify(ret), 200
+
 
 @auth.route('/login', methods=["POST"])
 def login():
@@ -45,14 +59,6 @@ def login():
     return jsonify(token), 200
 
 
-@auth.route('/refresh', methods=['POST'])
-@jwt_refresh_token_required
-def refresh():
-    current_user = get_jwt_identity()
-    ret = {
-        'access_token': create_access_token(identity=current_user)
-    }
-    return jsonify(ret), 200
 
 
 @auth.route('/register', methods=["POST"])
