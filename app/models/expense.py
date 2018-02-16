@@ -2,7 +2,7 @@ from app.models import db
 from app.utils import utcnow
 from app.utils import Serializer
 
-
+from sqlalchemy import CheckConstraint
 
 
 class Expense(db.Model, Serializer):
@@ -16,13 +16,19 @@ class Expense(db.Model, Serializer):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(255), nullable=False)
     date = db.Column(db.DateTime(timezone=True), server_default=utcnow(), nullable=False)
-    amount = db.Column(db.Float, nullable=False)
+    amount = db.Column(db.Float,   nullable=False)
 
     month_id = db.Column(db.Integer, db.ForeignKey('months.year_month_usr'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     category = db.relationship('Category',
                                backref=db.backref('expenses', lazy='joined'))
+
+
+    __table_args__ = (
+        CheckConstraint(amount > 0, name='check_amount_positive'),
+        {}
+    )
 
 
 

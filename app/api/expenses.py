@@ -7,6 +7,7 @@ from app.models.user import User
 from app.models.expense import Expense
 from app.models.month import Month
 
+from sqlalchemy.exc import IntegrityError
 
 
 expenses = Blueprint("expenses", __name__)
@@ -120,8 +121,10 @@ def create():
     month.expenses.append(new_expense)
     db.session.add(month)
 
-    # db.session.add(new_expense)
-    db.session.commit()
+    try:
+        db.session.commit()
+    except IntegrityError as e:
+        return jsonify({'msg': 'Negative value to expenses possibly added'}), 400
 
     return jsonify({'msg': 'Expense added'}), 201
 

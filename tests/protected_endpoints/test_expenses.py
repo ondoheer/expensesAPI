@@ -94,6 +94,25 @@ class TestCategory(unittest.TestCase):
 
 		self.assertEqual(response.status_code, 201)
 
+	def test_create_invalid_negative_expense(self):
+		
+		
+		data = {
+			"name": TEST_VALID_EXPENSE_NAME,
+			'amount': TEST_INVALID_NEGATIVE_EXPENSE_AMOUNT,
+			'category_id': self.TEST_CATEGORY_ID
+
+		}
+
+		access_token = self.tokens['access_token']
+		response = self.client.post('/expense',
+							data=json.dumps(data),
+							content_type='application/json',
+							headers={'Authorization': f'Bearer {access_token}'}
+		)
+
+		self.assertEqual(response.status_code, 400)
+
 	def test_get_expenses_with_expenses(self):
 		"""
 		Not empty returned array
