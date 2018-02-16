@@ -13,10 +13,14 @@ from app.extensions import bcrypt
 
 auth = Blueprint("auth", __name__)
 
+
+
 @auth.route('/validate')
 @jwt_refresh_token_required
 def validate():
     return jsonify({'msg':'valid token'}), 200
+
+
 
 @auth.route('/refresh', methods=['POST'])
 @jwt_refresh_token_required
