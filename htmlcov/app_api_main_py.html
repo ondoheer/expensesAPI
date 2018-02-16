@@ -8,7 +8,7 @@
     
     
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for app/api/main.py: 45%</title>
+    <title>Coverage for app/api/main.py: 91%</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -24,19 +24,19 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>app/api/main.py</b> :
-            <span class="pc_cov">45%</span>
+            <span class="pc_cov">91%</span>
         </h1>
 
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
 
         <h2 class="stats">
             18 statements &nbsp;
-            <span class="run hide_run shortkey_r button_toggle_run">10 run</span>
-            <span class="mis shortkey_m button_toggle_mis">8 missing</span>
+            <span class="run hide_run shortkey_r button_toggle_run">17 run</span>
+            <span class="mis shortkey_m button_toggle_mis">1 missing</span>
             <span class="exc shortkey_x button_toggle_exc">0 excluded</span>
 
             
-                <span class="par run hide_run shortkey_p button_toggle_par">0 partial</span>
+                <span class="par run hide_run shortkey_p button_toggle_par">1 partial</span>
             
         </h2>
     </div>
@@ -85,23 +85,23 @@
 <p id="n14" class="stm run hide_run"><a href="#n14">14</a></p>
 <p id="n15" class="pln"><a href="#n15">15</a></p>
 <p id="n16" class="pln"><a href="#n16">16</a></p>
-<p id="n17" class="stm mis"><a href="#n17">17</a></p>
+<p id="n17" class="stm run hide_run"><a href="#n17">17</a></p>
 <p id="n18" class="pln"><a href="#n18">18</a></p>
-<p id="n19" class="stm mis"><a href="#n19">19</a></p>
+<p id="n19" class="stm par run hide_run"><a href="#n19">19</a></p>
 <p id="n20" class="stm mis"><a href="#n20">20</a></p>
 <p id="n21" class="pln"><a href="#n21">21</a></p>
-<p id="n22" class="stm mis"><a href="#n22">22</a></p>
+<p id="n22" class="stm run hide_run"><a href="#n22">22</a></p>
 <p id="n23" class="pln"><a href="#n23">23</a></p>
 <p id="n24" class="pln"><a href="#n24">24</a></p>
-<p id="n25" class="stm mis"><a href="#n25">25</a></p>
+<p id="n25" class="stm run hide_run"><a href="#n25">25</a></p>
 <p id="n26" class="pln"><a href="#n26">26</a></p>
 <p id="n27" class="pln"><a href="#n27">27</a></p>
 <p id="n28" class="pln"><a href="#n28">28</a></p>
-<p id="n29" class="stm mis"><a href="#n29">29</a></p>
+<p id="n29" class="stm run hide_run"><a href="#n29">29</a></p>
 <p id="n30" class="pln"><a href="#n30">30</a></p>
 <p id="n31" class="pln"><a href="#n31">31</a></p>
 <p id="n32" class="pln"><a href="#n32">32</a></p>
-<p id="n33" class="stm mis"><a href="#n33">33</a></p>
+<p id="n33" class="stm run hide_run"><a href="#n33">33</a></p>
 <p id="n34" class="pln"><a href="#n34">34</a></p>
 <p id="n35" class="pln"><a href="#n35">35</a></p>
 <p id="n36" class="pln"><a href="#n36">36</a></p>
@@ -110,7 +110,7 @@
 <p id="n39" class="pln"><a href="#n39">39</a></p>
 <p id="n40" class="pln"><a href="#n40">40</a></p>
 <p id="n41" class="pln"><a href="#n41">41</a></p>
-<p id="n42" class="stm mis"><a href="#n42">42</a></p>
+<p id="n42" class="stm run hide_run"><a href="#n42">42</a></p>
 
             </td>
             <td class="text">
@@ -130,23 +130,23 @@
 <p id="t14" class="stm run hide_run"><span class="op">@</span><span class="nam">jwt_required</span><span class="strut">&nbsp;</span></p>
 <p id="t15" class="pln"><span class="key">def</span> <span class="nam">index</span><span class="op">(</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t16" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t17" class="stm mis">    <span class="nam">current_user_email</span> <span class="op">=</span> <span class="nam">get_jwt_identity</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t17" class="stm run hide_run">    <span class="nam">current_user_email</span> <span class="op">=</span> <span class="nam">get_jwt_identity</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t18" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t19" class="stm mis">    <span class="key">if</span> <span class="key">not</span> <span class="nam">current_user_email</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t19" class="stm par run hide_run"><span class="annotate short">19&#x202F;&#x219B;&#x202F;20</span><span class="annotate long">line 19 didn't jump to line 20, because the condition on line 19 was never true</span>    <span class="key">if</span> <span class="key">not</span> <span class="nam">current_user_email</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t20" class="stm mis">        <span class="key">return</span> <span class="nam">jsonify</span><span class="op">(</span><span class="op">{</span><span class="str">'error'</span><span class="op">:</span> <span class="str">'not authorized'</span><span class="op">}</span><span class="op">)</span><span class="op">,</span> <span class="num">401</span><span class="strut">&nbsp;</span></p>
 <p id="t21" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t22" class="stm mis">    <span class="nam">user</span> <span class="op">=</span> <span class="nam">User</span><span class="op">.</span><span class="nam">query</span><span class="op">.</span><span class="nam">filter_by</span><span class="op">(</span><span class="nam">email</span><span class="op">=</span><span class="nam">current_user_email</span><span class="op">)</span><span class="op">.</span><span class="nam">first</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t22" class="stm run hide_run">    <span class="nam">user</span> <span class="op">=</span> <span class="nam">User</span><span class="op">.</span><span class="nam">query</span><span class="op">.</span><span class="nam">filter_by</span><span class="op">(</span><span class="nam">email</span><span class="op">=</span><span class="nam">current_user_email</span><span class="op">)</span><span class="op">.</span><span class="nam">first</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t23" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t24" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t25" class="stm mis">    <span class="nam">current_date</span> <span class="op">=</span> <span class="nam">datetime</span><span class="op">.</span><span class="nam">datetime</span><span class="op">.</span><span class="nam">now</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t25" class="stm run hide_run">    <span class="nam">current_date</span> <span class="op">=</span> <span class="nam">datetime</span><span class="op">.</span><span class="nam">datetime</span><span class="op">.</span><span class="nam">now</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t26" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t27" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t28" class="pln">    <span class="com"># get last 12 months</span><span class="strut">&nbsp;</span></p>
-<p id="t29" class="stm mis">    <span class="nam">last_twelve</span> <span class="op">=</span> <span class="nam">Month</span><span class="op">.</span><span class="nam">get_last_n_months</span><span class="op">(</span><span class="nam">user</span><span class="op">.</span><span class="nam">id</span><span class="op">,</span> <span class="num">12</span><span class="op">)</span><span class="op">.</span><span class="nam">all</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t29" class="stm run hide_run">    <span class="nam">last_twelve</span> <span class="op">=</span> <span class="nam">Month</span><span class="op">.</span><span class="nam">get_last_n_months</span><span class="op">(</span><span class="nam">user</span><span class="op">.</span><span class="nam">id</span><span class="op">,</span> <span class="num">12</span><span class="op">)</span><span class="op">.</span><span class="nam">all</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t30" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t31" class="pln">    <span class="com"># We prepare the data to be send as JSON</span><span class="strut">&nbsp;</span></p>
 <p id="t32" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t33" class="stm mis">    <span class="nam">to_return</span> <span class="op">=</span> <span class="op">[</span><span class="strut">&nbsp;</span></p>
+<p id="t33" class="stm run hide_run">    <span class="nam">to_return</span> <span class="op">=</span> <span class="op">[</span><span class="strut">&nbsp;</span></p>
 <p id="t34" class="pln">        <span class="op">{</span><span class="strut">&nbsp;</span></p>
 <p id="t35" class="pln">        <span class="str">"id"</span><span class="op">:</span> <span class="str">f'{month.year}-{month.month}-{month.user_id}'</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
 <p id="t36" class="pln">        <span class="str">"total"</span><span class="op">:</span><span class="nam">month</span><span class="op">.</span><span class="nam">total_expenses</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
@@ -155,7 +155,7 @@
 <p id="t39" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t40" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t41" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t42" class="stm mis">    <span class="key">return</span> <span class="nam">jsonify</span><span class="op">(</span><span class="nam">to_return</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t42" class="stm run hide_run">    <span class="key">return</span> <span class="nam">jsonify</span><span class="op">(</span><span class="nam">to_return</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 
             </td>
         </tr>
@@ -166,7 +166,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-02-15 18:58
+            created at 2018-02-16 10:11
         </p>
     </div>
 </div>

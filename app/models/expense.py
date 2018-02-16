@@ -27,11 +27,12 @@ class Expense(db.Model, Serializer):
 
 
 
-    def __init__(self, name="", amount="", user_id="", category_id=""):
+    def __init__(self, name="", amount="", user_id="", category_id="", month_id=""):
         self.name = name
         self.amount = amount
         self.category_id = category_id,
-        self.user_id = user_id
+        self.user_id = user_id,
+        self.month_id = month_id
 
 
     def serialize(self):

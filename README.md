@@ -18,6 +18,12 @@ $ python manage.py db upgrade
 # test and coverage all
 $ coverage run --source app --branch -m unittest discover
 
+# terminal report
+$ coverage report
+
+# html report
+$ coverage html
+
 # test single testcase
 python -m unittest tests.auth.test_tokens
 
