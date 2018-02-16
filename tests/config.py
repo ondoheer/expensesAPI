@@ -1,0 +1,9 @@
+BASE_URL = 'http://127.0.0.1:5000'
+
+TEST_VALID_USER = 'Testing guy'
+TEST_VALID_EMAIL = 'test@guy.com'
+TEST_VALID_PASSWORD = 'letrasyn234ros!'
+
+TEST_INVALID_USER = ''
+TEST_INVALID_EMAIL = 'test@a'
+TEST_INVALID_PASSWORD = 'corto'

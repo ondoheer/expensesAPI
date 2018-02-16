@@ -28,7 +28,7 @@ def login():
         return jsonify({"msg": "Email Missing"}), 400
 
     if not password:
-        return jsonify({"msg": "Missing password"})
+        return jsonify({"msg": "Missing password"}), 400
 
     # validate user logic
     # the identity is the one that will be returned by get_jwt_identity
@@ -72,9 +72,10 @@ def register():
     is_email_valid, error = validate_email(email)
     if not is_email_valid:
         return jsonify({"msg": "that is not a valid email", "err": error}), 400
+
     user_exists = db.session.query(User).filter_by(email=email).first()
     if user_exists:
-        return jsonify({'msg': 'user with those unique attributes already exists'}), 500
+        return jsonify({'msg': 'username with that email already exists'}), 409
 
     if not fullname:
         return jsonify({"msg": "Full name required"}), 400
