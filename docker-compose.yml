@@ -1,0 +1,21 @@
+postgres:
+  image: postgres:10.2
+  environment:
+    POSTGRES_USER: spendy
+    POSTGRES_PASSWORD: yourpassword
+  ports:
+    - '5432:5432'
+  volumes:
+    - ~/.docker-volumes/spendy/postgresql/data:/var/lib/postgresql/data
+
+spendy:
+  build: .
+  command: gunicorn -b 0.0.0.0:8000 --reload --access-logfile - "app:create_app(config='DockerConfig')"
+  environment:
+    PYTHONUNBUFFERED: "true"
+  links:
+    - postgres
+  volumes:
+    - .:/spendy
+  ports:
+    - '8000:8000'

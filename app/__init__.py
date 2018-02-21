@@ -21,13 +21,11 @@ def create_app(app=None, config="DevelopmentConfig"):
     # require this values)
     app.config.from_object("app.config.{}".format(config))
 
-
-    ## inits
+    # inits
     init_extensions(app)
 
     # Blueprints
     register_blueprints(app)
-
 
     # @app.after_request
     # def add_user_to_global(response):
@@ -42,6 +40,4 @@ def create_app(app=None, config="DevelopmentConfig"):
     #     print("here we go: {}".format(g.user))
     #     return response
 
-
     return app
-

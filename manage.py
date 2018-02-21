@@ -12,8 +12,7 @@ from app.models.category import Category
 from app.models.month import Month
 
 
-
-app = create_app()
+app = create_app(config="DockerConfig")
 
 
 manager = Manager(app)
@@ -34,5 +33,7 @@ def make_shell_context():
         Category=Category,
         Month=Month
     )
+
+
 if __name__ == '__main__':
     manager.run()
