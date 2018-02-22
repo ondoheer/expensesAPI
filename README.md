@@ -38,5 +38,16 @@ $ docker-compose run
 // access psotgres cli
 $ docker-compose exec postgres psql -U spendy
 
-# I'm not really loving docker, just because in general I hate devops
+// use python manage.py
+$ docker-compose exec SPENDY python manage.py <command>
+
+// MIGRATIONS
+$ docker-compose exec spendy bash -c "python manage.py db init"
+$ docker-compose exec spendy bash -c "python manage.py db migrate --message '<message>' "
+$ docker-compose exec spendy bash -c "python manage.py db upgrade "
 ```
+
+## TODO
+
+* Development Seeders
+* REAL server responses
