@@ -6,7 +6,7 @@ from app.register import register_blueprints
 from app.models.user import User
 
 
-def create_app(app=None, config="DevelopmentConfig"):
+def create_app(app=None):
     """
     creates a Flask App.
     :param app: Fask application instance
@@ -19,7 +19,12 @@ def create_app(app=None, config="DevelopmentConfig"):
 
     # config (has to happend before inits since some extensions
     # require this values)
-    app.config.from_object("app.config.{}".format(config))
+    # app.config.from_pyfile("config.py")
+    app.config.from_object('app.config.base')
+    if not app.config['TESTING']:
+        app.config.from_envvar('FLASK_CONFIG')
+    else:
+        app.config.from_object('config.testing')
 
     # inits
     init_extensions(app)

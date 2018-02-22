@@ -9,25 +9,24 @@ services:
       POSTGRES_PASSWORD: spendy
     ports:
       - '5432:5432'
-    #volumes:
-      #- ~/.docker-volumes/spendy/postgresql/data:/var/lib/postgresql/data
+    
 
   spendy:
     build: . # calls on the directory Dockerfile
-    command: python manage.py runserver --host 0.0.0.0
-   
-    #command: #gunicorn -b 0.0.0.0:8000 --reload --access-logfile - "app:create_app()"
+    command: python -m unittest discover   
+    
     environment:
       PYTHONUNBUFFERED: "true"
-      APP_ENVIRONMENT: DEVELOPMENT
-      FLASK_CONFIG: config/development.py
+      APP_ENVIRONMENT: TESTING
+      FLASK_CONFIG: config/testing.py
+      DATABASE_NAME: spendy_testing
       
     links:
       - postgres
     depends_on:
       - postgres #make sure it's on before starting this one
 
-    restart: always
+    
     volumes:
       - .:/spendy
     ports:

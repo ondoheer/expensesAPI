@@ -12,7 +12,7 @@ from app.models.category import Category
 from app.models.month import Month
 
 
-app = create_app(config="DockerConfig")
+app = create_app()
 
 
 manager = Manager(app)

@@ -15,7 +15,8 @@ class Expense(db.Model, Serializer):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(255), nullable=False)
-    date = db.Column(db.DateTime(timezone=True), server_default=utcnow(), nullable=False)
+    date = db.Column(db.DateTime(timezone=True),
+                     server_default=utcnow(), nullable=False)
     amount = db.Column(db.Float,   nullable=False)
 
     month_id = db.Column(db.Integer, db.ForeignKey('months.year_month_usr'))
@@ -24,14 +25,10 @@ class Expense(db.Model, Serializer):
     category = db.relationship('Category',
                                backref=db.backref('expenses', lazy='joined'))
 
-
     __table_args__ = (
         CheckConstraint(amount > 0, name='check_amount_positive'),
         {}
     )
-
-
-
 
     def __init__(self, name="", amount="", user_id="", category_id="", month_id=""):
         self.name = name
@@ -40,7 +37,6 @@ class Expense(db.Model, Serializer):
         self.user_id = user_id,
         self.month_id = month_id
 
-
     def serialize(self):
         d = Serializer.serialize(self)
         del d['category']
@@ -48,4 +44,3 @@ class Expense(db.Model, Serializer):
         del d['month']
         d['date'] = d['date'].strftime('%d/%m/%Y')
         return d
-

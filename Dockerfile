@@ -13,4 +13,7 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD gunicorn -b 0.0.0.0:8000 "app:create_app()"
+# CMD python manage.py db upgrade
+
+#CMD gunicorn -b 0.0.0.0:8000 "app:create_app()"
+
